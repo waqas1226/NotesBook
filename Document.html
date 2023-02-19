@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)file:///C:/Users/Dell/OneDrive/Desktop/New.html? -->
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<script>
+var u;
+var y=0;
+notesObj=[];
+ntObj=[];
+</script>
+<style>
+ img
+{
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 2px;
+  width: 30px;
+  height:30px;
+} 
+.bg
+{
+  background-image: linear-gradient(to bottom right, red, orange);
+  height:100%;
+} 
+.notesdiv
+{
+display:inline-block;
+} 
+.notes
+{
+padding: 3px;
+width:140px;
+height:100px;
+text-align:justify;
+border:solid black;
+margin-left:6px;
+margin-right:6px;  
+background-color: white;
+}
+.RdMnotes
+{
+width:100%;
+height:100%;
+text-align:justify;
+border:solid black;
+margin-left:-10px;
+background-color: white;
+}
+
+.Removebt
+{
+  margin-left:5px;
+  background-color: lightgrey;
+}
+
+#note
+{
+width:188px;
+height:60px;
+border: solid black;
+margin-left: 10px;
+}
+
+#button
+{background-color: lightgrey;
+margin-left: 10px;}
+
+          
+#notesbox
+{margin-top:5px;} 
+
+.navbar1{
+display:flex;
+flex-direction:row;
+align-items:flex-start;
+background-color:darkred;
+} 
+</style>
+</head>
+<body>
+<div class="bg" id="bgg">
+<nav class="navbar1">
+<a style="color:black" href="#"><b>Magic Notes</b></a>
+<div id="navbar" style="display: flex;justify-content: flex-start;align-items: center;">
+ <input class="form-control" id="searchTxt" type="search" placeholder="Search" aria-label="Search" style="margin-top:10px;" >
+<button class="btn m" type="submit" style="margin-top:10px;" onclick="search()">Search</button>
+</div>
+<img src="bg.jpg" alt="Sabz">
+</nav>
+
+    <div class="container">
+        <h1 id="heading" style="text-align:center;"> Welcome to Magic notes</h1>
+      <div>
+<label for="title" style="margin-left:10px "><b>Add Title</b></label><br>
+<input type="text" id="title" placeholder="Write Title here" style="margin-left:10px;"> 
+      </div>
+      <div>
+<label for="note" style="margin-left:10px"><b>Add note here</b></label><br>
+<textarea id="note" placeholder="Write Note here"></textarea><br>
+<input type="button" value="Add note" id="button" onclick="hello(this.id)">
+      </div>
+    </div>
+<div id="ser"></div>
+    <div id="notesbox" style="margin-left:10px"></div>
+</div>
+
+<script> 
+notesObj=[];
+shownotes();
+
+function shownotes() 
+{
+y=0;
+document.getElementById("notesbox").innerText=null;
+document.getElementById("ser").innerText=null;;
+let notes=localStorage.getItem("notes");
+let nt=localStorage.getItem("nt");
+//alert(nt);
+//lert(notes) ;
+if (notes==null) 
+{
+notesObj=[];
+ntObj=[];
+//alert(ntObj);
+}
+else{
+notesObj= JSON.parse(notes);
+ntObj= JSON.parse(nt);
+//alert(notes) ;
+} 
+//
+//alert(notesObj. length);
+let l=notesObj.length;
+for(let i=0;i<l;i++)
+//for(value of l) 
+{
+if(notesObj[i]==null)
+{
+let n=notesObj.splice(i, 1);
+ntObj.splice(i, 1);
+} 
+if (notesObj[i]!=null)
+{
+let ss=notesObj[i].slice(0,30)+"...";
+Makediv(ntObj[i], ss, 1);
+y=y+1;
+} 
+localStorage.setItem("notes", JSON.stringify(notesObj));
+localStorage.setItem("nt", JSON.stringify(ntObj));
+} 
+} 
+
+function hello() 
+{
+//var date=new Date();
+let x=document.getElementById("note").value;
+z=document.getElementById("notesbox");
+let title=document.getElementById("title");
+let t=title.value;
+if(t.length<2 || x.length<10){
+alert("tha")
+}
+else
+{
+Makediv(t, x.slice(0,30)+"...", 1);
+
+notesObj[y]=x;
+ntObj[y]=t;
+localStorage.setItem("notes", JSON.stringify(notesObj));
+localStorage.setItem("nt", JSON.stringify(ntObj));
+
+note.value=null;
+title.value=null;
+y=y+1;
+}
+} 
+
+function Remove(clicked)
+{
+//alert("remove");
+document.getElementById('div'+clicked).remove();
+let notes = localStorage.getItem("notes");
+let nt = localStorage.getItem("nt");
+
+delete notesObj[clicked];
+delete ntObj[clicked];
+
+localStorage.setItem("notes", JSON.stringify(notesObj));
+localStorage.setItem("nt", JSON.stringify(ntObj));
+} 
+
+function search() 
+{
+//alert("search");
+let sear = document.getElementById('searchTxt').value;
+//alert(inputVal);
+let notes=localStorage.getItem("notes");
+let nt=localStorage.getItem("nt");
+let notesObj= JSON.parse(notes);
+let ntObj= JSON.parse(nt);
+//alert(inputVal);
+let l=notesObj.length;
+document.getElementById("notesbox").innerText=null;
+y=0;
+for(let j=0;j<l;j++) 
+{
+y=j
+if(notesObj[j].includes(sear))
+{
+Makediv(ntObj[j], notesObj[j].slice(0,30)+"...", 1);
+document.getElementById('searchTxt').value=null;
+} 
+} 
+}
+
+function RdMr(RdMid) 
+{
+
+//alert("search");
+let iddiv=RdMid.slice(1,); 
+let RdMtit = document.getElementById('t' +iddiv).innerText;
+
+let notes=localStorage.getItem("notes");
+let notesObj= JSON.parse(notes);
+document.getElementById("notesbox").innerText=null;
+
+Makediv(RdMtit, notesObj[iddiv], 2);
+
+let RdMdiv=document.getElementsByClassName("notes");
+} 
+
+function Makediv(xx, yy, zz) 
+{
+let z=document.getElementById("notesbox");
+
+const a = document.createElement('div');
+a.setAttribute("class", "notesdiv") ;
+a. id="div" +y;
+z.appendChild(a);
+
+const Tit = document.createElement('h3');
+Tit.innerText=xx;
+Tit.style.marginLeft="10px";
+Tit.id="t"+y;
+a.appendChild(Tit);
+
+const e = document.createElement('p');
+//e.setAttribute("class", "notes") ;
+e.innerText= yy;
+e.id = 'p'+y ;
+//a.appendChild(e);
+
+if (zz==1)
+{
+e.setAttribute("class", "notes") ;
+a.appendChild(e);
+ const in1 = document.createElement('input');
+in1.type = "button" ;
+in1.value= 'Remove';
+in1.id=y;
+in1.setAttribute("onclick", "Remove(this.id)") ;
+in1.setAttribute("class", "Removebt") ;
+a.appendChild(in1);
+
+const RdM = document.createElement('input');
+RdM.type = "button" ;
+RdM.value= 'Read More';
+RdM.id="v" +y;
+RdM.setAttribute("onclick", "RdMr(this.id)") ;
+RdM.setAttribute("class", "Removebt") ;
+a.appendChild(RdM);
+}
+
+else if (zz==2)
+{
+e.setAttribute("class", "RdMnotes") ;
+a.appendChild(e);
+//document.getElementById('p' +iddiv).setAttribute("class", "RdMnotes");
+const in2 = document.createElement('input');
+in2.type = "button" ;
+in2.value= 'Back';
+in2.style.marginLeft="10px";
+in2.setAttribute("onclick", "shownotes()") ;
+in2.setAttribute("class", "Backbt") ;
+a.appendChild(in2);
+}
+}
+
+
+
+
+
+
+/* shownotes
+const a = document.createElement('div');
+a.setAttribute("class", "notesdiv") ;
+a. id="div"+y;
+z.appendChild(a);
+
+const Tit = document.createElement('h3');
+Tit.innerText=ntObj[i];
+Tit.style.marginLeft="10px";
+Tit.id="t"+y;
+a.appendChild(Tit);
+
+const e = document.createElement('p');
+e.setAttribute("class", "notes") ;
+e.innerText=notesObj[i].slice(0,5);
+e.id = 'p'+y ;
+a.appendChild(e);
+
+const in1 = document.createElement('input');
+in1.type = "button" ;
+in1.value= 'Remove';
+in1.id=y;
+in1.setAttribute("onclick", "Remove(this.id)") ;
+in1.setAttribute("class", "Removebt") ;
+a.appendChild(in1);
+
+const RdM = document.createElement('input');
+RdM.type = "button" ;
+RdM.value= 'Read More';
+RdM.id="v" +y;
+RdM.setAttribute("onclick", "RdMr(this.id)") ;
+RdM.setAttribute("class", "Removebt") ;
+a.appendChild(RdM);
+*/
+/* Hello
+const a = document.createElement('div');
+a.setAttribute("class", "notesdiv") ;
+a. id="div" +y;
+z.appendChild(a);
+
+const Tit = document.createElement('h3');
+Tit.innerText=t;
+Tit.style.marginLeft="10px";
+Tit.id="t"+y;
+a.appendChild(Tit);
+
+const e = document.createElement('p');
+e.setAttribute("class", "notes") ;
+e.innerText= date+x.slice(0,5);
+e.id = 'p'+y ;
+a.appendChild(e);
+
+ const in1 = document.createElement('input');
+in1.type = "button" ;
+in1.value= 'Remove';
+in1.id=y;
+in1.setAttribute("onclick", "Remove(this.id)") ;
+in1.setAttribute("class", "Removebt") ;
+a.appendChild(in1);
+
+const RdM = document.createElement('input');
+RdM.type = "button" ;
+RdM.value= 'Read More';
+RdM.id="v" +y;
+RdM.setAttribute("onclick", "RdMr(this.id)") ;
+RdM.setAttribute("class", "Removebt") ;
+a.appendChild(RdM);
+*/
+/* RdMr
+const a = document.createElement('div');
+a.setAttribute("class", "notesdiv") ;
+//a.id="div"+j;
+RdMdiv.appendChild(a);
+
+const Tit = document.createElement('h3');
+Tit.innerText=RdMtit;
+Tit.style.marginLeft="10px";
+a.appendChild(Tit);
+
+const e = document.createElement('p');
+e.setAttribute("class", "notes") ;
+e.innerText=notesObj[iddiv];
+a.appendChild(e);
+
+const in1 = document.createElement('input');
+in1.type = "button" ;
+in1.value= 'Back';
+//in1.id=j;
+in1.setAttribute("onclick", "shownotes()") ;
+in1.setAttribute("class", "Backbt") ;
+a.appendChild(in1);*/
+</script>
+
+</body></html>
