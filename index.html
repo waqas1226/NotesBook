@@ -14,14 +14,6 @@ notesObj=[];
 ntObj=[];
 </script>
 <style>
- img
-{
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 2px;
-  width: 30px;
-  height:30px;
-} 
 .bg
 {
   background-image: linear-gradient(to bottom right, red, orange);
@@ -88,7 +80,7 @@ a{
 }
 #serch{
   display: flex;
-  justify-content:flex-start;
+  justify-content:center;
   align-items: center; 
   flex: 1;
 }
@@ -101,9 +93,9 @@ a{
 <div class="bg" id="bgg">
 <nav class="navbar1">
 <a style="color:black" href="#"><b>Magic Notes</b></a>
-<div id="navbar" style="display: flex;justify-content: flex-start;align-items: center;">
- <input class="form-control" id="searchTxt" type="search" placeholder="Search" aria-label="Search" style="margin-top:10px;" >
-<button class="btn m" type="submit" style="margin-top:10px;" onclick="search()">Search</button>
+<div id="serch">
+ <input class="form-control" id="searchTxt" type="search" placeholder="Search" aria-label="Search">
+<button class="btn m" type="submit" onclick="search()">Search</button>
 </div>
 </nav>
 
