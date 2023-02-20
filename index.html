@@ -25,7 +25,7 @@ ntObj=[];
 .bg
 {
   background-image: linear-gradient(to bottom right, red, orange);
-  height:100%;
+  min-height:100vh;
 } 
 .notesdiv
 {
@@ -45,10 +45,9 @@ background-color: white;
 .RdMnotes
 {
 width:100%;
-height:100%;
+min-height:180px;
 text-align:justify;
 border:solid black;
-margin-left:-10px;
 background-color: white;
 }
 
@@ -61,7 +60,7 @@ background-color: white;
 #note
 {
 width:188px;
-height:60px;
+min-height:60px;
 border: solid black;
 margin-left: 10px;
 }
@@ -76,10 +75,26 @@ margin-left: 10px;}
 
 .navbar1{
 display:flex;
-flex-direction:row;
-align-items:flex-start;
+align-items:center;
+justify-content: space-around;
+padding: 5px 0;
+gap: 10px;
+
 background-color:darkred;
 } 
+a{
+  text-decoration: none;
+  text-align: center;
+}
+#serch{
+  display: flex;
+  justify-content:flex-start;
+  align-items: center; 
+  flex: 1;
+}
+#searchTxt{
+  width: 80%;
+}
 </style>
 </head>
 <body>
@@ -90,7 +105,6 @@ background-color:darkred;
  <input class="form-control" id="searchTxt" type="search" placeholder="Search" aria-label="Search" style="margin-top:10px;" >
 <button class="btn m" type="submit" style="margin-top:10px;" onclick="search()">Search</button>
 </div>
-<img src="bg.jpg" alt="Sabz">
 </nav>
 
     <div class="container">
